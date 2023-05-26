@@ -62,7 +62,7 @@ public class Keypad {
 
 
         for (int i = 0; i < numKeys; i++) {
-            String k = "key" + (i + 1);
+            String k = "hkey" + (i + 1);
             int rt = Integer.parseInt(data.get(k + ".rt"));
             int crt = Integer.parseInt(data.get(k + ".crt"));
             int rtus = Integer.parseInt(data.get(k + ".rtus"));
