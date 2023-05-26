@@ -3,4 +3,6 @@ Java implementation of a configuration tool for a hall effect keypad running min
 
 too tired to make readme
 
+it requires java 20
+
 the 1.0.0 version is for old minipad firmware so it uses key instead of hkey to send the commands
