@@ -28,18 +28,6 @@ public class Keypad {
         return keys;
     }
 
-    public SerialPort getSerialPort() {
-        return serialPort;
-    }
-
-    public void setKeys(ArrayList<Key> keys) {
-        this.keys = keys;
-    }
-
-    public void addKey(Key keyObj) {
-        keys.add(keyObj);
-    }
-
     public void update() {
 
         Map<String, String> data = SerialManager.get(serialPort);
@@ -118,13 +106,11 @@ public class Keypad {
 
 
     public void save() {
-        String saveCommand = "save" + "\n";
-        serialPort.writeBytes(saveCommand.getBytes(), saveCommand.length());
+        SerialManager.sendSerial(serialPort,"save");
     }
 
     public void flash() {
-        String flashCommand = "flash" + "\n";
-        serialPort.writeBytes(flashCommand.getBytes(), flashCommand.length());
+        SerialManager.sendSerial(serialPort, "boot");
     }
 
 }

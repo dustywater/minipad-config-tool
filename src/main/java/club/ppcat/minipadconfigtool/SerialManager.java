@@ -76,13 +76,6 @@ public class SerialManager {
         return null;
     }
 
-    public static void apply() {
-
-    }
-
-    public static void save() {
-
-    }
 
 
 }
