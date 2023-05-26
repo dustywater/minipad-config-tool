@@ -30,30 +30,10 @@ public class Main extends javafx.application.Application {
         launch();
     }
 
-    public static void initialize(String serialPort) {
-        SerialPort sp = SerialPort.getCommPort(serialPort);
-
-        if (sp.openPort()) {
-            System.out.println("success");
-        } else {
-            System.out.println("not success");
-        }
-
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            @Override
-            public void run() {
-                sp.closePort();
-            }
-        });
-
-        sp.setComPortParameters(115200, 8, SerialPort.ONE_STOP_BIT, SerialPort.NO_PARITY);
-
-        sp.setComPortTimeouts(SerialPort.TIMEOUT_WRITE_BLOCKING | SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0);
-
+    public static void initialize(String serialPath) {
+        SerialPort sp = SerialManager.openPort(serialPath);
         keypad = new Keypad(sp);
         keypad.update();
-        System.out.println(keypad.getName());
-        System.out.println(keypad.getKeys().get(1).getDown());
 
         try {
             Stream<Window> openWindows = Stage.getWindows().stream().filter(Window::isShowing);
@@ -66,6 +46,4 @@ public class Main extends javafx.application.Application {
         }
 
     }
-
-
 }

@@ -2,17 +2,14 @@ package club.ppcat.minipadconfigtool;
 
 import com.fazecast.jSerialComm.SerialPort;
 
-import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class Keypad {
 
     private String name;
     private ArrayList<Key> keys;
-    private SerialPort serialPort;
-
+    private final SerialPort serialPort;
 
 
     public Keypad(SerialPort serialPort) {
@@ -45,72 +42,44 @@ public class Keypad {
 
     public void update() {
 
-        String command = "get";
-        serialPort.writeBytes(command.getBytes(), command.length());
+        Map<String, String> data = SerialManager.get(serialPort);
+        keys = new ArrayList<Key>();
 
-        InputStream in = serialPort.getInputStream();
+        String finalKey = null;
 
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
-            String line;
-            Map<String, String> data = new HashMap<>();
+        name = data.get("name");
 
-            while ((line = reader.readLine()) != null) {
-                if (line.equals("GET END")) {
-                    break;
-                }
+        for (Map.Entry<String, String> entry : data.entrySet()) {
+            String key = entry.getKey();
 
-                String[] parts = line.split("=");
-                if (parts.length == 2) {
-                    String key = parts[0].trim().replace("GET ", "");
-                    String value = parts[1].trim();
-                    data.put(key, value);
-                }
-
+            if (key.startsWith("key")) {
+                finalKey = key;
             }
-
-            name = data.get("name");
-
-            keys = new ArrayList<Key>();
-
-            String finalKey = null;
-
-            for (Map.Entry<String, String> entry : data.entrySet()) {
-                String key = entry.getKey();
-
-                if (key.startsWith("key")) {
-                    finalKey = key;
-                }
-            }
-
-            String keyNumber = finalKey.substring(3, finalKey.indexOf('.'));
-            int numKeys = Integer.parseInt(keyNumber);
-
-
-            for (int i = 0; i < numKeys; i++) {
-                String k = "key" + (i + 1);
-                int rt = Integer.parseInt(data.get(k + ".rt"));
-                int crt = Integer.parseInt(data.get(k + ".crt"));
-                int rtus = Integer.parseInt(data.get(k + ".rtus"));
-                int rtds = Integer.parseInt(data.get(k + ".rtds"));
-                int lh = Integer.parseInt(data.get(k + ".lh"));
-                int uh = Integer.parseInt(data.get(k + ".uh"));
-                int rest = Integer.parseInt(data.get(k + ".rest"));
-                int down = Integer.parseInt(data.get(k + ".down"));
-                int hid = Integer.parseInt(data.get(k + ".hid"));
-                int trdt = Integer.parseInt(data.get("trdt"));
-
-                Key key = new Key(i + 1, rt, crt, rest, down, hid, rtds, rtus, lh, uh, trdt);
-                keys.add(key);
-            }
-
-
-
-
-            System.out.println("name = " + name);
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+
+        String keyNumber = finalKey.substring(3, finalKey.indexOf('.'));
+        int numKeys = Integer.parseInt(keyNumber);
+
+
+        for (int i = 0; i < numKeys; i++) {
+            String k = "key" + (i + 1);
+            int rt = Integer.parseInt(data.get(k + ".rt"));
+            int crt = Integer.parseInt(data.get(k + ".crt"));
+            int rtus = Integer.parseInt(data.get(k + ".rtus"));
+            int rtds = Integer.parseInt(data.get(k + ".rtds"));
+            int lh = Integer.parseInt(data.get(k + ".lh"));
+            int uh = Integer.parseInt(data.get(k + ".uh"));
+            int rest = Integer.parseInt(data.get(k + ".rest"));
+            int down = Integer.parseInt(data.get(k + ".down"));
+            int hid = Integer.parseInt(data.get(k + ".hid"));
+            int trdt = Integer.parseInt(data.get("trdt"));
+
+            Key key = new Key(i + 1, rt, crt, rest, down, hid, rtds, rtus, lh, uh, trdt);
+            keys.add(key);
+        }
+
+
+        System.out.println("name = " + name);
 
     }
 
@@ -122,50 +91,37 @@ public class Keypad {
         for (Key k : keys) {
             String keyString = "key" + k.getKeyNum();
 
-            String rtCommand =  keyString + ".rt " + k.isRt() + "\n";
-            serialPort.writeBytes(rtCommand.getBytes(), rtCommand.length());
-            System.out.println(rtCommand);
+            // Build serial commands
+            String rtCommand = keyString + ".rt " + k.isRt();
+            String crtCommand = keyString + ".crt " + k.isCrt();
+            String rtusCommand = keyString + ".rtus " + k.getRtus();
+            String rtdsCommand = keyString + ".rtds " + k.getRtds();
+            String uhCommand = keyString + ".uh " + k.getUh();
+            String lhCommand = keyString + ".lh " + k.getLh();
+            String restCommand = keyString + ".rest " + k.getRest();
+            String downCommand = keyString + ".down " + k.getDown();
+            String hidCommand = keyString + ".hid " + k.isHid();
 
-            String crtCommand =  keyString + ".crt " + k.isCrt() + "\n";
-            serialPort.writeBytes(crtCommand.getBytes(), crtCommand.length());
-            System.out.println(crtCommand);
+            // Send serial commands to keypad, uh and rest sent twice in case rest/uh is lower than old down/lh
+            SerialManager.sendSerial(serialPort, rtCommand);
+            SerialManager.sendSerial(serialPort, crtCommand);
 
-            String rtusCommand =  keyString + ".rtus " + k.getRtus() + "\n";
-            serialPort.writeBytes(rtusCommand.getBytes(), rtusCommand.length());
-            System.out.println(rtusCommand);
+            SerialManager.sendSerial(serialPort, rtusCommand);
+            SerialManager.sendSerial(serialPort, rtdsCommand);
 
-            String rtdsCommand =  keyString + ".rtds " + k.getRtds() + "\n";
-            serialPort.writeBytes(rtdsCommand.getBytes(), rtdsCommand.length());
-            System.out.println(rtdsCommand);
+            SerialManager.sendSerial(serialPort, uhCommand);
+            SerialManager.sendSerial(serialPort, lhCommand);
+            SerialManager.sendSerial(serialPort, uhCommand);
 
-            String uhCommand =  keyString + ".uh " + k.getUh() + "\n";
-            serialPort.writeBytes(uhCommand.getBytes(), uhCommand.length());
-            System.out.println(uhCommand);
+            SerialManager.sendSerial(serialPort, restCommand);
+            SerialManager.sendSerial(serialPort, downCommand);
+            SerialManager.sendSerial(serialPort, restCommand);
 
-            String lhCommand =  keyString + ".lh " + k.getLh() + "\n";
-            serialPort.writeBytes(lhCommand.getBytes(), lhCommand.length());
-            System.out.println(lhCommand);
+            SerialManager.sendSerial(serialPort, hidCommand);
 
-            serialPort.writeBytes(uhCommand.getBytes(), uhCommand.length());
-
-            String restCommand = keyString + ".rest " + k.getRest() + "\n";
-            serialPort.writeBytes(restCommand.getBytes(), restCommand.length());
-            System.out.println(restCommand);
-
-            String downCommand = keyString + ".down " + k.getDown() + "\n";
-            serialPort.writeBytes(downCommand.getBytes(), downCommand.length());
-            System.out.println(downCommand);
-
-            serialPort.writeBytes(restCommand.getBytes(), restCommand.length());
-            System.out.println(restCommand);
-
-            String hidCommand = keyString + ".hid " + k.isHid() + "\n";
-            serialPort.writeBytes(hidCommand.getBytes(), hidCommand.length());
-            System.out.println(hidCommand);
 
         }
     }
-
 
 
     public void save() {

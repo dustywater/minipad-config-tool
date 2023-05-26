@@ -14,7 +14,7 @@ public class Key {
     private int lh;
     private int uh;
 
-    private int trdt;
+    private final int trdt;
 
     public Key(int keyNum, int rt, int crt, int rest, int down, int hid, int rtds, int rtus, int lh, int uh, int trdt) {
         this.keyNum = keyNum;

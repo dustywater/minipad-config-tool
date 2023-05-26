@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 
 
-
 public class SelectPortController {
     String selectedPort;
 

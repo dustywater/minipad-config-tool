@@ -64,13 +64,14 @@ public class MainConfigController {
         applyButton.setText("Apply");
 
     }
+
     @FXML
     public void saveButtonClicked() {
         Main.keypad.save();
     }
 
     @FXML
-    public void flashButtonClicked(){
+    public void flashButtonClicked() {
         Main.keypad.flash();
         Stage window = (Stage) flashButton.getScene().getWindow();
         window.close();

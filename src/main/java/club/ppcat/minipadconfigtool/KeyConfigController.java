@@ -76,7 +76,7 @@ public class KeyConfigController {
     }
 
     public void setCheckBox(int value, CheckBox checkBox) {
-        if(value == 0) {
+        if (value == 0) {
             checkBox.setSelected(false);
         } else {
             checkBox.setSelected(true);
@@ -84,7 +84,7 @@ public class KeyConfigController {
     }
 
     @FXML
-    public void rtusSliderChange (Double newValue){
+    public void rtusSliderChange(Double newValue) {
         double roundedValue = Math.round(newValue.doubleValue() * 20) / 20.0;
         rtusIndicator.setText(roundedValue + "mm");
         int newRtus = (int) (roundedValue * 100);
@@ -92,7 +92,7 @@ public class KeyConfigController {
     }
 
     @FXML
-    public void rtdsSliderChange (Double newValue){
+    public void rtdsSliderChange(Double newValue) {
         double roundedValue = Math.round(newValue.doubleValue() * 20) / 20.0;
         rtdsIndicator.setText(roundedValue + "mm");
         int newRtds = (int) (roundedValue * 100);
@@ -100,7 +100,7 @@ public class KeyConfigController {
     }
 
     @FXML
-    public void uhSliderChange (Double newValue){
+    public void uhSliderChange(Double newValue) {
         double roundedValue = Math.round(newValue.doubleValue() * 20) / 20.0;
         uhIndicator.setText(roundedValue + "mm");
         int newUh = (int) (roundedValue * 100);
@@ -108,7 +108,7 @@ public class KeyConfigController {
     }
 
     @FXML
-    public void lhSliderChange (Double newValue){
+    public void lhSliderChange(Double newValue) {
         double roundedValue = Math.round(newValue.doubleValue() * 20) / 20.0;
         lhIndicator.setText(roundedValue + "mm");
         int newLh = (int) (roundedValue * 100);
@@ -116,8 +116,8 @@ public class KeyConfigController {
     }
 
     @FXML
-    public void rtCheckBoxClicked (){
-        if(rtCheckBox.isSelected()) {
+    public void rtCheckBoxClicked() {
+        if (rtCheckBox.isSelected()) {
             key.setRt(1);
         } else {
             key.setRt(0);
@@ -125,8 +125,8 @@ public class KeyConfigController {
     }
 
     @FXML
-    public void crtCheckBoxClicked (){
-        if(crtCheckBox.isSelected()) {
+    public void crtCheckBoxClicked() {
+        if (crtCheckBox.isSelected()) {
             key.setCrt(1);
         } else {
             key.setCrt(0);
@@ -135,18 +135,18 @@ public class KeyConfigController {
 
 
     @FXML
-    public void restBoxChange (){
+    public void restBoxChange() {
         key.setRest(Integer.parseInt(restBox.getText()));
     }
 
     @FXML
-    public void downBoxChange (){
+    public void downBoxChange() {
         key.setDown(Integer.parseInt(downBox.getText()));
     }
 
     @FXML
-    public void hidCheckBoxClicked (){
-        if(hidCheckBox.isSelected()) {
+    public void hidCheckBoxClicked() {
+        if (hidCheckBox.isSelected()) {
             key.setHid(1);
         } else {
             key.setHid(0);
