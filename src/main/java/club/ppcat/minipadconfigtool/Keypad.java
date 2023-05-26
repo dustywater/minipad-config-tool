@@ -52,12 +52,12 @@ public class Keypad {
         for (Map.Entry<String, String> entry : data.entrySet()) {
             String key = entry.getKey();
 
-            if (key.startsWith("key")) {
+            if (key.startsWith("hkey")) {
                 finalKey = key;
             }
         }
 
-        String keyNumber = finalKey.substring(3, finalKey.indexOf('.'));
+        String keyNumber = finalKey.substring(4, finalKey.indexOf('.'));
         int numKeys = Integer.parseInt(keyNumber);
 
 
@@ -89,7 +89,7 @@ public class Keypad {
 
 
         for (Key k : keys) {
-            String keyString = "key" + k.getKeyNum();
+            String keyString = "hkey" + k.getKeyNum();
 
             // Build serial commands
             String rtCommand = keyString + ".rt " + k.isRt();
