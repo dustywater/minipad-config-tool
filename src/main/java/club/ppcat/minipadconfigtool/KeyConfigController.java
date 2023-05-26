@@ -1,14 +1,9 @@
 package club.ppcat.minipadconfigtool;
 
-import javafx.beans.Observable;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
 
 public class KeyConfigController {
 
@@ -23,8 +18,6 @@ public class KeyConfigController {
     @FXML
     private Label rtusIndicator, rtdsIndicator, uhIndicator, lhIndicator;
 
-    @FXML
-    private TextField restBox, downBox;
 
 
     public void populate() {
@@ -50,9 +43,6 @@ public class KeyConfigController {
 
         uhIndicator.setText(uhSlider.getValue() + "mm");
         lhIndicator.setText(lhSlider.getValue() + "mm");
-
-        restBox.setText(String.valueOf(key.getRest()));
-        downBox.setText(String.valueOf(key.getDown()));
 
         rtusSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             rtusSliderChange(newValue.doubleValue());
@@ -133,16 +123,6 @@ public class KeyConfigController {
         }
     }
 
-
-    @FXML
-    public void restBoxChange() {
-        key.setRest(Integer.parseInt(restBox.getText()));
-    }
-
-    @FXML
-    public void downBoxChange() {
-        key.setDown(Integer.parseInt(downBox.getText()));
-    }
 
     @FXML
     public void hidCheckBoxClicked() {

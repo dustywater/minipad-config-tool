@@ -69,12 +69,10 @@ public class Keypad {
             int rtds = Integer.parseInt(data.get(k + ".rtds"));
             int lh = Integer.parseInt(data.get(k + ".lh"));
             int uh = Integer.parseInt(data.get(k + ".uh"));
-            int rest = Integer.parseInt(data.get(k + ".rest"));
-            int down = Integer.parseInt(data.get(k + ".down"));
             int hid = Integer.parseInt(data.get(k + ".hid"));
             int trdt = Integer.parseInt(data.get("trdt"));
 
-            Key key = new Key(i + 1, rt, crt, rest, down, hid, rtds, rtus, lh, uh, trdt);
+            Key key = new Key(i + 1, rt, crt, hid, rtds, rtus, lh, uh, trdt);
             keys.add(key);
         }
 
@@ -98,11 +96,10 @@ public class Keypad {
             String rtdsCommand = keyString + ".rtds " + k.getRtds();
             String uhCommand = keyString + ".uh " + k.getUh();
             String lhCommand = keyString + ".lh " + k.getLh();
-            String restCommand = keyString + ".rest " + k.getRest();
-            String downCommand = keyString + ".down " + k.getDown();
+
             String hidCommand = keyString + ".hid " + k.isHid();
 
-            // Send serial commands to keypad, uh and rest sent twice in case rest/uh is lower than old down/lh
+            // Send serial commands to keypad, uh sent twice in case uh is lower than old lh
             SerialManager.sendSerial(serialPort, rtCommand);
             SerialManager.sendSerial(serialPort, crtCommand);
 
@@ -112,10 +109,6 @@ public class Keypad {
             SerialManager.sendSerial(serialPort, uhCommand);
             SerialManager.sendSerial(serialPort, lhCommand);
             SerialManager.sendSerial(serialPort, uhCommand);
-
-            SerialManager.sendSerial(serialPort, restCommand);
-            SerialManager.sendSerial(serialPort, downCommand);
-            SerialManager.sendSerial(serialPort, restCommand);
 
             SerialManager.sendSerial(serialPort, hidCommand);
 

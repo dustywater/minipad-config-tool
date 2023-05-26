@@ -4,8 +4,6 @@ public class Key {
     private int keyNum;
     private int rt;
     private int crt;
-    private int rest;
-    private int down;
     private int hid;
     private char key;
 
@@ -16,12 +14,10 @@ public class Key {
 
     private final int trdt;
 
-    public Key(int keyNum, int rt, int crt, int rest, int down, int hid, int rtds, int rtus, int lh, int uh, int trdt) {
+    public Key(int keyNum, int rt, int crt, int hid, int rtds, int rtus, int lh, int uh, int trdt) {
         this.keyNum = keyNum;
         this.rt = rt;
         this.crt = crt;
-        this.rest = rest;
-        this.down = down;
         this.hid = hid;
         this.rtds = rtds;
         this.rtus = rtus;
@@ -52,22 +48,6 @@ public class Key {
 
     public void setCrt(int crt) {
         this.crt = crt;
-    }
-
-    public int getRest() {
-        return rest;
-    }
-
-    public void setRest(int rest) {
-        this.rest = rest;
-    }
-
-    public int getDown() {
-        return down;
-    }
-
-    public void setDown(int down) {
-        this.down = down;
     }
 
     public int isHid() {
