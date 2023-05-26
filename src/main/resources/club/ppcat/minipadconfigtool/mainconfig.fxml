@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="club.ppcat.minipadconfigtool.MainConfigController">
+   <children>
+      <TabPane fx:id="tabPane" layoutX="25.0" layoutY="146.0" prefHeight="440.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" />
+      <Button fx:id="applyButton" layoutX="563.0" layoutY="35.0" mnemonicParsing="false" onAction="#applyButtonClicked" text="Apply" />
+      <Button fx:id="saveButton" layoutX="563.0" layoutY="74.0" mnemonicParsing="false" onAction="#saveButtonClicked" prefHeight="25.0" prefWidth="54.0" text="Save" />
+      <Text layoutX="25.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Label layoutX="25.0" layoutY="39.0" text="Name" />
+      <TextField fx:id="nameBox" layoutX="25.0" layoutY="62.0" onKeyTyped="#nameBoxChange" text="minipad" />
+      <Button fx:id="flashButton" layoutX="388.0" layoutY="50.0" mnemonicParsing="false" onAction="#flashButtonClicked" text="Flashing Mode" />
+   </children>
+</Pane>

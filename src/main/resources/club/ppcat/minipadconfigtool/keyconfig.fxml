@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="club.ppcat.minipadconfigtool.KeyConfigController">
+   <children>
+      <Label layoutX="103.0" layoutY="184.0" text="Upper Hysteresis" />
+      <Label layoutX="350.0" layoutY="42.0" text="Rapid Trigger Up Sensitivity" />
+      <Label layoutX="340.0" layoutY="107.0" text="Rapid Trigger Down Sensitivity" />
+      <Label layoutX="103.0" layoutY="262.0" text="Lower Hysteresis" />
+      <Label layoutX="346.0" layoutY="206.0" text="Rest" />
+      <Label layoutX="346.0" layoutY="244.0" text="Down" />
+      <Slider fx:id="rtusSlider" blockIncrement="0.05" layoutX="371.0" layoutY="64.0" majorTickUnit="0.1" max="1.0" min="0.1" minorTickCount="1" showTickMarks="true" snapToTicks="true" />
+      <Slider fx:id="rtdsSlider" blockIncrement="0.05" layoutX="371.0" layoutY="131.0" majorTickUnit="0.1" max="1.0" min="0.1" minorTickCount="1" showTickMarks="true" snapToTicks="true" />
+      <CheckBox fx:id="rtCheckBox" layoutX="64.0" layoutY="57.0" mnemonicParsing="false" text="Rapid Trigger" onAction="#rtCheckBoxClicked"/>
+      <CheckBox fx:id="crtCheckBox" layoutX="64.0" layoutY="95.0" mnemonicParsing="false" text="Continuous Rapid Trigger" onAction="#crtCheckBoxClicked"/>
+      <Slider fx:id="uhSlider" blockIncrement="0.05" layoutX="89.0" layoutY="206.0" majorTickUnit="0.1" max="1.0" minorTickCount="1" showTickMarks="true" snapToTicks="true" />
+      <Slider fx:id="lhSlider" blockIncrement="0.05" layoutX="89.0" layoutY="286.0" majorTickUnit="0.1" max="1.0" minorTickCount="1" showTickMarks="true" snapToTicks="true" />
+      <Button fx:id="wizardButton" layoutX="350.0" layoutY="274.0" mnemonicParsing="false" text="Calibration Wizard" />
+      <TextField fx:id="restBox" layoutX="423.0" layoutY="202.0" prefHeight="24.0" prefWidth="55.0" onKeyTyped="#restBoxChange"/>
+      <TextField fx:id="downBox" layoutX="423.0" layoutY="240.0" prefHeight="24.0" prefWidth="55.0" onKeyTyped="#downBoxChange"/>
+      <Label fx:id="rtusIndicator" layoutX="524.0" layoutY="67.0" text="0" />
+      <Label fx:id="rtdsIndicator" layoutX="524.0" layoutY="136.0" text="0" />
+      <Label fx:id="uhIndicator" layoutX="245.0" layoutY="206.0" text="0" />
+      <Label fx:id="lhIndicator" layoutX="245.0" layoutY="290.0" text="0" />
+      <CheckBox fx:id="hidCheckBox" layoutX="64.0" layoutY="135.0" mnemonicParsing="false" text="HID Enabled" onAction="#hidCheckBoxClicked"/>
+   </children>
+</Pane>
