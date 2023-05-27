@@ -59,8 +59,9 @@ public class Keypad {
             int uh = Integer.parseInt(data.get(k + ".uh"));
             int hid = Integer.parseInt(data.get(k + ".hid"));
             int trdt = Integer.parseInt(data.get("trdt"));
+            char keyChar = (char) Integer.parseInt(data.get(k + ".char"));
 
-            Key key = new Key(i + 1, rt, crt, hid, rtds, rtus, lh, uh, trdt);
+            Key key = new Key(i + 1, rt, crt, hid, rtds, rtus, lh, uh, trdt, keyChar);
             keys.add(key);
         }
 
@@ -84,6 +85,7 @@ public class Keypad {
             String rtdsCommand = keyString + ".rtds " + k.getRtds();
             String uhCommand = keyString + ".uh " + k.getUh();
             String lhCommand = keyString + ".lh " + k.getLh();
+            String keyCommand = keyString + ".char " + (int) k.getKey();
 
             String hidCommand = keyString + ".hid " + k.isHid();
 
@@ -99,6 +101,7 @@ public class Keypad {
             SerialManager.sendSerial(serialPort, uhCommand);
 
             SerialManager.sendSerial(serialPort, hidCommand);
+            SerialManager.sendSerial(serialPort, keyCommand);
 
 
         }

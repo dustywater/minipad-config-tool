@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 
 public class KeyConfigController {
 
@@ -17,6 +18,9 @@ public class KeyConfigController {
 
     @FXML
     private Label rtusIndicator, rtdsIndicator, uhIndicator, lhIndicator;
+
+    @FXML
+    private TextField keyBox;
 
 
 
@@ -43,6 +47,8 @@ public class KeyConfigController {
 
         uhIndicator.setText(uhSlider.getValue() + "mm");
         lhIndicator.setText(lhSlider.getValue() + "mm");
+
+        keyBox.setText(String.valueOf(key.getKey()));
 
         rtusSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             rtusSliderChange(newValue.doubleValue());
@@ -133,5 +139,11 @@ public class KeyConfigController {
         }
     }
 
+    @FXML
+    public void keyBoxChange() {
+        if (!keyBox.getText().isEmpty()) {
+            key.setKey(keyBox.getText().charAt(0));
+        }
+    }
 
 }
